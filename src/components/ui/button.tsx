@@ -16,6 +16,10 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        hero: "min-h-12 bg-primary px-6 font-extrabold text-primary-foreground shadow-lg hover:bg-primary/90",
+        heroOutline: "min-h-12 border border-foreground-inverse bg-transparent px-6 font-extrabold text-foreground-inverse hover:bg-foreground-inverse/10",
+        inverse: "min-h-12 bg-foreground-inverse px-6 font-extrabold text-primary hover:bg-foreground-inverse/90",
+        ghostInverse: "text-foreground-inverse hover:bg-foreground-inverse/10",
       },
       size: {
         default: "h-9 px-4 py-2",
