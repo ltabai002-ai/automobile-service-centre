@@ -11,6 +11,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/infield-showroom-hero.webp";
 import deliveryImage from "@/assets/infield-car-delivery.webp";
+import featTeamTrack from "@/assets/feat_team_track.png";
+import featTestDrive from "@/assets/feat_test_drive.png";
+import featLeadPipe from "@/assets/feat_lead_pipe.png";
+const featureImages = [featTeamTrack, featTestDrive, featLeadPipe, heroImage, deliveryImage, heroImage];
 
 type Icon = typeof Users;
 type FormState = { name:string; showroom:string; phone:string; email:string; city:string; executives:string; vehicle_type:string; message:string };
@@ -58,7 +62,58 @@ function MiniMap() { return <div className="mini-map"><svg viewBox="0 0 320 150"
 function BrowserFrame({children,title}:{children:ReactNode;title:string}) { return <div className="browser-frame"><div className="browser-bar"><span/><span/><span/><b>{title}</b></div>{children}</div> }
 function Benefits({items}:{items:string[]}) { return <ul className="benefits">{items.map(x=><li key={x}><span><Check/></span>{x}</li>)}</ul> }
 
-function TeamMockup(){return <BrowserFrame title="Live Team Map"><div className="tracking-mock"><MiniMap/><div className="map-label label-a">RK <small>On Test Drive</small></div><div className="map-label label-b">NM <small>Available</small></div><div className="map-label label-c">AV <small>Field Visit</small></div><div className="activity-feed"><b>Live activity</b>{["3:45 PM · Rajesh started test drive with Mr. Sharma","3:30 PM · Priya attending walk-in customer","3:10 PM · Amit left for field visit"].map(t=><p key={t}><span/> {t}</p>)}</div></div></BrowserFrame>}
+function TeamMockup() {
+  return (
+    <BrowserFrame title="Live Team Map">
+      <div className="tracking-mock" style={{ background: "var(--surface-light)", padding: "20px" }}>
+        <div style={{ position: "relative", background: "var(--foreground-inverse)", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--border)", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
+          <div style={{ height: "245px" }}><MiniMap /></div>
+          
+          <motion.div className="map-label label-a" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.5, type: "spring" }} style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
+            Rajesh K. <small style={{ color: "var(--status-drive)" }}>Test Drive</small>
+          </motion.div>
+          <motion.div className="map-label label-b" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, duration: 0.5, type: "spring" }} style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
+            Neha M. <small style={{ color: "var(--status-available)" }}>Available</small>
+          </motion.div>
+          <motion.div className="map-label label-c" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.7, duration: 0.5, type: "spring" }} style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
+            Amit V. <small style={{ color: "var(--status-field)" }}>Field</small>
+          </motion.div>
+        </div>
+
+        <div className="activity-feed" style={{ marginTop: "16px", background: "var(--foreground-inverse)", padding: "16px", borderRadius: "12px", border: "1px solid var(--border)", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
+          <b style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px", fontSize: "14px" }}>
+            <Activity size={16} color="var(--primary)" /> LIVE ACTIVITY
+          </b>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px", background: "var(--surface-light)", borderRadius: "8px" }}>
+              <span style={{ background: "var(--status-available)", width: "8px", height: "8px", borderRadius: "50%", flexShrink: 0 }}></span>
+              <p style={{ margin: 0, padding: 0, border: "none", fontSize: "11px", display: "flex", alignItems: "center", flexWrap: "wrap", gap: "4px" }}>
+                <b>Neha M.</b> marked status as <span style={{ color: "var(--status-available)", display: "inline-block", background: "none", width: "auto", height: "auto", margin: 0, fontWeight: "800" }}>Available</span>
+              </p>
+              <small style={{ marginLeft: "auto", color: "var(--muted-foreground)", fontSize: "9px", flexShrink: 0 }}>Just now</small>
+            </motion.div>
+            
+            <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0 }} style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px", background: "var(--surface-light)", borderRadius: "8px" }}>
+              <span style={{ background: "var(--status-drive)", width: "8px", height: "8px", borderRadius: "50%", flexShrink: 0 }}></span>
+              <p style={{ margin: 0, padding: 0, border: "none", fontSize: "11px", display: "flex", alignItems: "center", flexWrap: "wrap", gap: "4px" }}>
+                <b>Rajesh K.</b> started a <span style={{ color: "var(--status-drive)", display: "inline-block", background: "none", width: "auto", height: "auto", margin: 0, fontWeight: "800" }}>Test Drive</span>
+              </p>
+              <small style={{ marginLeft: "auto", color: "var(--muted-foreground)", fontSize: "9px", flexShrink: 0 }}>2m ago</small>
+            </motion.div>
+            
+            <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2 }} style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px", background: "var(--surface-light)", borderRadius: "8px" }}>
+              <span style={{ background: "var(--status-customer)", width: "8px", height: "8px", borderRadius: "50%", flexShrink: 0 }}></span>
+              <p style={{ margin: 0, padding: 0, border: "none", fontSize: "11px", display: "flex", alignItems: "center", flexWrap: "wrap", gap: "4px" }}>
+                <b>Priya S.</b> assigned to <span style={{ color: "var(--status-customer)", display: "inline-block", background: "none", width: "auto", height: "auto", margin: 0, fontWeight: "800" }}>Walk-in</span>
+              </p>
+              <small style={{ marginLeft: "auto", color: "var(--muted-foreground)", fontSize: "9px", flexShrink: 0 }}>5m ago</small>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </BrowserFrame>
+  );
+}
 function TestDriveMockup(){return <div className="three-phones"><div className="mini-phone"><b>Test Drive Form</b>{["Customer  Mr. Sharma","Model  SUV XYZ","Reg  DL-01-AB-1234","Executive  Rajesh K.","Start  3:45 PM"].map(x=><p key={x}>{x}</p>)}<button>Start Test Drive</button></div><div className="mini-phone active-drive"><b>Test Drive Live</b><MiniMap/><strong>12:04</strong><span><Gauge/> 48 km/h</span></div><div className="mini-phone"><b>Drive Summary</b>{[["Duration","25 min"],["Distance","12 km"],["Rating","★★★★★"],["Follow-up","Required"],["Returned","4:10 PM"]].map(x=><p key={x[0]}><span>{x[0]}</span><b>{x[1]}</b></p>)}</div></div>}
 function PipelineMockup(){const cols=[["Walk-In","Mrs. Mehta · Sedan · ₹9.8 L"],["Hot Lead","Mr. Khan · SUV · ₹14.2 L"],["Test Drive Done","Mr. Sharma · SUV XYZ · ₹12.5 L"],["Negotiation","Ms. Gupta · EV · ₹18.6 L"],["Booking","Mr. Iyer · SUV · ₹15.4 L"],["Delivery","Mrs. Bose · Sedan · ₹11.1 L"]]; return <BrowserFrame title="Lead Pipeline"><div className="pipeline-alert"><Bell/> 3 follow-ups due today <small>Sample data</small></div><div className="kanban">{cols.map(([a,b],i)=><div className={`kanban-col k${i}`} key={a}><b>{a}</b><article><span>{b.slice(0,2)}</span><p>{b}</p><small>Follow-up today</small></article></div>)}</div><div className="stats-row"><b>Walk-In → Booking <em>18%</em></b><b>Hot Lead → Delivery <em>42%</em></b></div></BrowserFrame>}
 function AlertMockup(){return <BrowserFrame title="Showroom Geofence"><div className="geofence"><div className="geo-ring"><span className="geo-pin">AV</span><div className="showroom">SHOWROOM</div></div><div className="timers"><span>05</span><span>15</span><span>30</span><b>35 min</b></div><div className="alert-phones"><div><Bell/><b>Amit V. out of showroom</b><p>35 mins, no active customer</p></div><div><Navigation/><b>Please update your status</b><p>You are outside the showroom area.</p></div></div></div></BrowserFrame>}
@@ -81,7 +136,7 @@ export default function InFieldLanding(){
    <section className="hero"><img src={heroImage} width={1536} height={1024} alt="Indian car showroom sales team assisting a customer"/><div className="hero-shade"/><div className="container hero-layout"><div className="hero-copy"><span className="eyebrow">SALES MANAGEMENT APP FOR CAR SHOWROOMS</span><p className="hook">Kaun free hai? Kaun test drive pe hai? Kaunsa lead stuck hai?</p><h1>Track Your Sales Team,<br/>Test Drives & Every Deal<br/><em>From One App.</em></h1><p className="hero-sub">See who's free, who's on a test drive and which lead is stuck — live. From walk-in to booking, delivery and incentives.</p><div className="hero-buttons"><CtaLink>BOOK A FREE DEMO</CtaLink><CtaLink href="#features" outline>SEE HOW IT WORKS</CtaLink></div></div><motion.div className="hero-phone" initial={{opacity:0,x:30}} animate={{opacity:1,x:0}} transition={{duration:.7,delay:.15}}><TeamPhone/></motion.div></div><div className="container trust-strip">{[[Activity,"Live Sales Team Tracking"],[RouteIcon,"Test Drive Records"],[Target,"Lead Pipeline"],[CircleDollarSign,"Auto Incentives"]].map(([I,t])=><div key={String(t)}><I/><span>{t}</span></div>)}</div></section>
    <section id="problem" className="section light-section"><div className="container"><SectionTitle>RUNNING A SHOWROOM WITHOUT <span>VISIBILITY</span></SectionTitle><div className="problem-grid">{problems.map(([I,t,d])=><Reveal className="problem-card" key={t}><I/><div><h3>{t}</h3><p>{d}</p></div></Reveal>)}</div><p className="closing-line">Every lost minute is a lost customer. And a lost deal.</p></div></section>
    <section className="solution section"><div className="container"><SectionTitle dark>ONE APP. <span>YOUR ENTIRE SHOWROOM SALES.</span></SectionTitle><p className="section-sub">InField digitally manages your sales team, test drives, customer enquiries and deal pipeline — all in one app.</p><Reveal className="solution-stage"><div className="float-card float-a"><Car/><span><b>Rajesh K. · Mr. Sharma</b><small>SUV XYZ · Test Drive</small></span></div><TeamPhone dashboard/><div className="float-card float-b"><Target/><span><b>Deal stage: Negotiation</b><small>Expected closure: 28 Sep</small></span></div></Reveal><div className="status-legend">{[["Available","status-available"],["With Customer","status-customer"],["On Test Drive","status-drive"],["Field Visit","status-field"],["Alert","status-alert"]].map(x=><span key={x[0]}><i className={x[1]}/>{x[0]}</span>)}</div></div></section>
-   <section id="features" className="section light-section"><div className="container"><SectionTitle>EVERYTHING YOUR SHOWROOM <span>NEEDS</span></SectionTitle><div className="features-grid">{features.map(([I,t,d,id],i)=><Reveal className={`feature-card feature-img-${i+1}`} key={t}><div><I/><h3>{t}</h3><p>{d}</p><a href={`#${id}`}>See how it works <ArrowRight/></a></div><ChevronRight className="mobile-chevron"/></Reveal>)}</div></div></section>
+   <section id="features" className="section light-section"><div className="container"><SectionTitle>EVERYTHING YOUR SHOWROOM <span>NEEDS</span></SectionTitle><div className="features-grid">{features.map(([I,t,d,id],i)=><Reveal className={`feature-card feature-img-${i+1}`} key={t}><img className="feature-card-bg" src={featureImages[i]} alt="" loading="lazy"/><div><I/><h3>{t}</h3><p>{d}</p><a href={`#${id}`}>See how it works <ArrowRight/></a></div><ChevronRight className="mobile-chevron"/></Reveal>)}</div></div></section>
    <FeatureBlock id="team-tracking" num="01" eyebrow="LIVE SALES TEAM TRACKING" line1="Know Who's Free, Busy or Out —" line2="In Real Time." sub="One live view of every executive, customer interaction and field movement." benefits={["Live status of every executive","Assign new walk-ins to whoever is free","Activity feed with timestamps"]} mockup={<TeamMockup/>}/>
    <FeatureBlock id="test-drives" num="02" eyebrow="TEST DRIVE MANAGEMENT" line1="Every Test Drive —" line2="Recorded & Verified." sub="Replace paper registers with a complete, time-stamped test drive record." benefits={["Car, customer, time and route saved automatically","Time-stamped records","Customer feedback after every drive"]} mockup={<TestDriveMockup/>} reverse/>
    <FeatureBlock id="lead-pipeline" num="03" eyebrow="LEAD PIPELINE" line1="Every Enquiry in One Pipeline —" line2="No Lead Left Behind." sub="Move every prospect from walk-in to delivery with the next action always visible." benefits={["Follow-up reminders at every stage","See which lead is stuck","Conversion rates at a glance"]} mockup={<PipelineMockup/>}/>
