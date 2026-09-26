@@ -1,0 +1,1 @@
+- [ ] Check and incorporate the user’s Git repository changes without overwriting them.
