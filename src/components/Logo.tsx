@@ -8,8 +8,8 @@ export default function Logo({ light = false, className = "", showTagline = fals
   return (
     <a href="#top" className={`inline-flex items-center gap-2.5 group ${className}`} aria-label="InField Home">
       <img 
-        src="/logo.png" 
-        alt="InField Logo" 
+        src="/autosales.webp" 
+        alt="Autosales Logo" 
         className="h-8 md:h-10 w-auto object-contain transition-transform group-hover:scale-105" 
       />
 
